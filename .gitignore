@@ -1,0 +1,11 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/__pycache__
+/.ipynb_checkpoints
+
+# training weights
+/weights
+
+# Test notebooks
+Dataset class.ipynb
