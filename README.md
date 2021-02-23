@@ -1,1 +1,1 @@
-# art_gan_project
+# Art GAN project
