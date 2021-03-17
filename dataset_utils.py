@@ -35,7 +35,13 @@ class ImpressionismDataset(Dataset):
 
         img_name = os.path.join(self.root_dir,
                                 self.metadata['new_filename'][idx])
-        image = io.imread(img_name)
+        
+        image = None
+        if os.path.exists(img_name):
+            image = io.imread(img_name)
+        else:
+            image = np.random.randint(1, 255, (128,128,3))
+            
         label = self.metadata['label'][idx]
         label = np.array([label])
         sample = {'image': image, 'label': label}
@@ -66,3 +72,13 @@ class ImpressionismNormalize(torchvision.transforms.Normalize):
 
         return {'image': F.normalize(image, self.mean, self.std, self.inplace),
                 'label': label}
+
+class ImpressionismResize(torchvision.transforms.Resize):
+    
+    def forward(self, sample):
+        #Unpack the image and label
+        image, label = sample['image'], sample['label']
+        
+        return {'image': F.resize(image, self.size, self.interpolation),
+                'label': label}
+   
